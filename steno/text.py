@@ -2,7 +2,7 @@
 import os
 import subprocess
 from steno import database as db
-__author__ = "Sohel Ahmed"
+__author__ = "Rohit"
 '''
 Module text.py for performing text stenography using SNOW
 link - http://darkside.com.au/snow/   -- here you will get to
@@ -20,6 +20,7 @@ def size(file: str):
 
 def encode(passwd: str, infile: str, outfile: str, file: str = None, message: str = None):
     """This is used to encode data in the file with password. Returns nothing"""
+    print(message)
     if message is not None:
         """If the data is a message it encodes it inside the contents of infile and saves it in outfile"""
         command = 'snow -C -Q -p "{}" -m "{}" {} {}'.format(passwd, message, infile, outfile)
@@ -37,4 +38,8 @@ def decode(passwd: str, file: str):
     form if password is correct else in encrypted form."""
     cmd = subprocess.Popen(['snow', '-C', '-p', passwd, file], stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
     stdout, stderr = cmd.communicate()
+    print(stdout, stderr)
+
     return str(stdout, 'utf-8')
+        
+
